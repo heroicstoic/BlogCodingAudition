@@ -7,4 +7,5 @@ urlpatterns = [
 	path('login/', login, {'template_name': 'login.html'}, name='login'),
 	path('logout/', logout, {'template_name': 'logout.html'}, name='logout'),
 	path('register/', views.register, name='register'),
+	path('profile/', views.profile, name='profile'),
 ]
