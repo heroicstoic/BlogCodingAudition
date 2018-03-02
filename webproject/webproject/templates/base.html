@@ -19,7 +19,7 @@
     <script crossorigin src="{% static 'js/react-dom.development.js' %}"></script>
     <script src="{% static 'js/clean-blog.min.js' %}"></script>
 
-    <link rel="stylesheet" type="text/css" href="{% static 'blog/styles.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
     <link rel="stylesheet" type="text/css" href="{% static 'css/clean-blog.min.css' %}">
 
     <!-- Custom fonts for this template -->
@@ -53,6 +53,12 @@
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{% url 'about' %}">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'login' %}">Log In</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'register' %}">Register</a>
             </li>
           </ul>
         </div>
