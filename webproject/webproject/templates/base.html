@@ -54,12 +54,24 @@
             <li class="nav-item">
               <a class="nav-link" href="{% url 'about' %}">About</a>
             </li>
+{% if user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'profile' %}">Profile</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
+            </li>
+            <li class="nav-item">
+              <a>Logged in as {{ user }}</a>
+            </li>
+{% else %}
             <li class="nav-item">
               <a class="nav-link" href="{% url 'login' %}">Log In</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="{% url 'register' %}">Register</a>
             </li>
+{% endif %}
           </ul>
         </div>
       </div>
@@ -68,24 +80,27 @@
 
     {% block header %}
     <!-- Page Header -->
-    <header class="masthead" style="background-image: url('{% static 'img/frog.jpg' %}')">
+    <header class="masthead" style="background-image: url('{% static 'img/frog2.jpg' %}')">
       <div class="overlay"></div>
       <div class="container">
         <div class="row">
           <div class="col-lg-8 col-md-10 mx-auto">
-            <div class="site-heading">
-              <h1>Frog Blog</h1>
-              <span class="subheading">A Blog about Frogs</span>
-            </div>
+            {% block title %}
+              <div class="site-heading">
+                <h1>Frog Blog</h1>
+             </div>
+            {% endblock %}
           </div>
         </div>
       </div>
     </header>
     {% endblock %}
 
-    {% block content %}
+    {% block container %}
     <!-- Main Content -->
     <div class="container">
+
+      {% block content %}
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
           <div class="post-preview">
@@ -147,6 +162,7 @@
           </div>
         </div>
       </div>
+      {% endblock %}
     </div>
     {% endblock %}
 

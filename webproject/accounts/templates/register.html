@@ -1,19 +1,19 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+	<div class="small-heading">
+	</div>
+{% endblock %}
 
 {% block content %}
 
-<h2>Register New User</h2>
-
-{% if invalid == True %}
-
-<p>There was a problem registering with the provided information. Please double check your data and try again.</p>
-
-{% endif %}
-
-<form method='post'>
+<form method="POST">
 	{% csrf_token %}
-	{{ form.as_p }}
-	<button type='submit' name='loginbutton'>Log In</button>
+	{{form|crispy}}
+    <button class="btn btn-primary" type="submit">
+    	Sign Up
+    </button>
 </form>
 
 {% endblock %}
