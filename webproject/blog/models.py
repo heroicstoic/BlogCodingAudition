@@ -18,8 +18,3 @@ class Blog(models.Model):
 
 	def __str__(self):
 		return self.title
-
-class BlogForm(ModelForm):
-	class Meta:
-		model = Blog
-		exclude = ['datePublished', 'op']

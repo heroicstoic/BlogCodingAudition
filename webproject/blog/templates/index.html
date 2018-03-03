@@ -1,19 +1,23 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 
 {% block content %}
+
+<form method="POST">
+	{{ form|crispy }}
+	<button class="btn btn-primary" type="submit"> Search</button>
+</form>
 
 <div class="row">
     <div class="col-lg-8 col-md-10 mx-auto">
    	{% for blog in blogs %}
 		<div class="post-preview">
-			<a href="post.html">
-				<h2 class="post-title">
-					{{ blog.title }}
-				</h2>
-				<h3 class="post-subtitle">
-                	{{ blog.content }}
-				</h3>
-			</a>
+			<h2 class="post-title">
+				{{ blog.title }}
+			</h2>
+			<p class="post-subtitle">
+            	{{ blog.content }}
+			</p>
 			<p class="post-meta">Posted by
 				{{ blog.op.username }}
 				on {{ blog.datePublished }}
