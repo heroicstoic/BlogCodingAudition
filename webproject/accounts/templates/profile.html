@@ -7,6 +7,27 @@
 
 {% block content %}
 
-{{ user }}
+You are logged in as {{ user }}. The following are all your posts we have on record.
+
+<div class="row">
+    <div class="col-lg-8 col-md-10 mx-auto">
+   	{% for blog in blogs %}
+		<div class="post-preview">
+			<a href="post.html">
+				<h2 class="post-title">
+					{{ blog.title }}
+				</h2>
+				<h3 class="post-subtitle">
+                	{{ blog.content }}
+				</h3>
+			</a>
+			<p class="post-meta">Posted by
+				{{ blog.op.username }}
+				on {{ blog.datePublished }}
+			</p>
+		</div>
+	{% endfor %}
+	</div>
+</div>
 
 {% endblock %}

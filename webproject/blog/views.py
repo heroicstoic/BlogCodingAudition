@@ -11,7 +11,7 @@ def home(request):
 	return render(request, 'index.html', args)
 
 @login_required
-def about(request):
+def write(request):
 	if request.method == 'POST':
 		form = BlogForm(request.POST)
 		if form.is_valid():
@@ -23,4 +23,4 @@ def about(request):
 	else:
 		form = BlogForm()
 		args = {'form': form}
-		return render(request, 'about.html', args)
+		return render(request, 'write.html', args)
