@@ -6,11 +6,21 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def home(request):
-	form = SearchForm(auto_id=False)
-	blogs = Blog.objects.all()
+	if request.method == 'POST':
+		form = SearchForm(request.POST)
+		blogs = Blog.objects.all()
+		if form.is_valid():
+			blogs = Blog.objects.filter(op__username=form.cleaned_data['author'])
 
-	args = {'user': request.user, 'blogs': blogs, 'form':form}
-	return render(request, 'index.html', args)
+		args = {'blogs': blogs, 'form':form}
+		return render(request, 'index.html', args)
+
+	else:
+		form = SearchForm()
+		blogs = Blog.objects.all()
+
+		args = {'blogs': blogs, 'form':form}
+		return render(request, 'index.html', args)
 
 @login_required
 def write(request):
