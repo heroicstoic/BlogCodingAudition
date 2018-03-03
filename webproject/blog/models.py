@@ -11,7 +11,7 @@ class Blog(models.Model):
 	op = models.ForeignKey(User, on_delete=models.CASCADE)
 
 	class Meta:
-		ordering = ["datePublished", "-title", "-content", "-op"]
+		ordering = ["-datePublished", "title", "content", "op"]
 
 	def get_absolute_url(self):
 		return reverse('model-detail-view', args=[str(self.id)])
