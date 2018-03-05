@@ -7,7 +7,11 @@
 
 {% block content %}
 
-You are logged in as {{ user }}. The following are all your posts we have on record.
+<h2>{{ user }}</h2>
+
+<p>The following are all your posts we have on record.</p>
+
+<br>
 
 <div class="row">
     <div class="col-lg-8 col-md-10 mx-auto">
@@ -23,7 +27,16 @@ You are logged in as {{ user }}. The following are all your posts we have on rec
 				{{ blog.op.username }}
 				on {{ blog.datePublished }}
 			</p>
+						<a href="">
+
+			<a href="{% url 'delete' pk=blog.pk %}">
+				<button class='btn btn-danger'> Delete Post </button>
+			</a>
+			<a href="{% url 'edit' pk=blog.pk %}">
+				<button class='btn btn-primary'"> Edit Post </button>
+			</a>
 		</div>
+		<hr>
 	{% endfor %}
 	</div>
 </div>

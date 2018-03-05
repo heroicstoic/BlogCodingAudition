@@ -36,3 +36,30 @@ def write(request):
 		form = BlogForm()
 		args = {'form': form}
 		return render(request, 'write.html', args)
+
+@login_required
+def edit(request, pk):
+	blog = Blog.objects.get(pk=pk)
+	if request.method == "POST" and request.user == blog.op:
+		form = BlogForm(request.POST)
+		if form.is_valid():
+			new_blog = form.save(commit=False)
+			blog.title = new_blog.title
+			blog.content = new_blog.content
+			blog.save()
+		return redirect(reverse('profile'))
+	form = BlogForm(instance = blog)
+	args = {'form': form}
+	return render(request, 'write.html', args)
+
+@login_required
+def delete(request,pk):
+	blog = Blog.objects.get(pk=pk)
+	if request.method == "POST" and request.user == blog.op:
+		form = BlogForm(request.POST)
+		if form.is_valid():
+			blog.delete()
+		return redirect(reverse('profile'))
+	form = BlogForm(instance = blog)
+	args = {'form': form}
+	return render(request, 'write.html', args)	

@@ -15,9 +15,22 @@
 	{% csrf_token %}
 
 	{{ form|crispy }}
-	<button class="btn btn-primary" type='submit' name='submitbutton'>
-		Submit
+
+
+	{% if request.resolver_match.url_name == 'delete' %}
+
+	<button class="btn btn-danger" type='submit' name='submitbutton'>
+		Delete Post
 	</button>
+
+	{% else %}
+
+	<button class="btn btn-primary" type='submit' name='submitbutton'>
+		Submit Post
+	</button>
+
+	{% endif %}
+
 </form>
 
 {% endblock %}
