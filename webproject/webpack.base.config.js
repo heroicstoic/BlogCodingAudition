@@ -1,29 +1,33 @@
-var path = require('path')
+var path = require("path")
 var webpack = require('webpack')
 
 module.exports = {
-	context: __dirname,
+  context: __dirname,
 
-	entry:{
-		app1: './reactjs/App1',
-		vendors: ['react'],
-	},
+  entry: {
+    // Add as many entry points as you have container-react-components here
+    App1: './reactjs/App1',
+    vendors: ['react'],
+  },
 
-	output: {
-		path: path.resolve('./webproject/static/bundles/local'),
-		filename: "[name]-[hash].js"
-	},
+  output: {
+      path: path.resolve('./webproject/static/bundles/local/'),
+      filename: "[name]-[hash].js"
+  },
 
-	externals:[],
-	plugins: [
-		new webpack.optimize.CommonsChunkPlugin('vendors', 'vendor.js'),
-	], 
-	module: {
-		loaders: [] // add all common loaders here
-	},
+  externals: [
+  ], // add all vendor libs
 
-	resolve: {
-		modulesDirectories: ['node_modules', 'bower_components'],
-		extensions: ['', '.js', '.jsx']
-	},
+  plugins: [
+    new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js'),
+  ], // add all common plugins here
+
+  module: {
+    loaders: [] // add all common loaders here
+  },
+
+  resolve: {
+    modulesDirectories: ['node_modules', 'bower_components'],
+    extensions: ['', '.js', '.jsx']
+  },
 }
