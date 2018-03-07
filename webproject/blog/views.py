@@ -3,6 +3,8 @@ from blog.models import Blog
 from blog.forms import BlogForm, SearchForm
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
+from blog.serializers import BlogSerializer
+from rest_framework import generics
 
 # Create your views here.
 def home(request):
@@ -62,4 +64,8 @@ def delete(request,pk):
 		return redirect(reverse('profile'))
 	form = BlogForm(instance = blog)
 	args = {'form': form}
-	return render(request, 'write.html', args)	
+	return render(request, 'write.html', args)
+
+class apiview(generics.RetrieveUpdateDestroyAPIView):
+	queryset = Blog.objects.all()
+	serializer_class = BlogSerializer

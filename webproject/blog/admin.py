@@ -1,5 +1,9 @@
 from django.contrib import admin
-from .models import Blog
+from blog.models import Blog
+
+class BlogAdmin(admin.ModelAdmin):
+	fields = ("title", "content", "op", "datePublished", "id")
+	readonly_fields = ("op", "datePublished", "id")
 
 # Register your models here.
-admin.site.register(Blog)
+admin.site.register(Blog, BlogAdmin)
