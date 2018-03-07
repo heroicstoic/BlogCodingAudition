@@ -133,3 +133,10 @@ STATICFILES_DIRS = [
 ]
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        'BUNDLE_DIR_NAME': 'bundles/local/',  # end with slash
+        'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats-local.json'),
+    }
+}
