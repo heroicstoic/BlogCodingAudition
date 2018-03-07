@@ -66,6 +66,10 @@ def delete(request,pk):
 	args = {'form': form}
 	return render(request, 'write.html', args)
 
-class apiview(generics.RetrieveUpdateDestroyAPIView):
+class BlogListView(generics.ListAPIView):
+	queryset = Blog.objects.all()
+	serializer_class = BlogSerializer
+
+class BlogRUDView(generics.RetrieveUpdateDestroyAPIView):
 	queryset = Blog.objects.all()
 	serializer_class = BlogSerializer
