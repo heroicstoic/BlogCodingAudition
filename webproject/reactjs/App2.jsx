@@ -1,7 +1,7 @@
 import React from "react"
 import { render } from "react-dom"
 
-var api_loc = 'http://127.0.0.1:8000/api/'
+var api_loc = '/api/'
 
 // Not entirely xss safe, unless input was protected on django end.
 // If time allowed, implement more XSS protection on client side
@@ -23,7 +23,7 @@ class App2 extends React.Component {
     fetch(this.state.restloc + BLOG_ID + '.json')
       .then(result=>result.json())
       .then(blog=>this.setState({blog}))
-      .then(()=>setTimeout(this.getRest, 5000)); 
+      .then(()=>setTimeout(this.getRest, 3000)); 
   }
 
   changeFilter(event) { // update the username that we filter by
@@ -57,9 +57,14 @@ class App2 extends React.Component {
         </header>
 
         <div className="container">
+          <div className="fb-like" dataHref={ window.location.href } dataLayout="standard" dataAction="like" dataSize="small" dataShowFaces="true" dataShare="true"></div>
+                  
           <p style={{ whiteSpace: "pre-line" }}>
             { this.state.blog.content }
           </p>
+
+          <div className="fb-like" dataHref={ window.location.href } dataLayout="standard" dataAction="like" dataSize="small" dataShowFaces="true" dataShare="true"></div>
+
         </div>
       </div>
     )

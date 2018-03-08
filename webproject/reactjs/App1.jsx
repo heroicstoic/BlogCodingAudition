@@ -3,7 +3,7 @@ import { render } from "react-dom"
 
 import BlogList from "./containers/BlogList"
 
-var api_loc = 'http://127.0.0.1:8000/api.json'
+var api_loc = 'api.json'
 
 class App1 extends React.Component {
   constructor() {
@@ -32,12 +32,23 @@ class App1 extends React.Component {
         .then(blogs=>this.setState({blogs}))
         .then(()=>setTimeout(this.getRest, 5000));
     }
-
   }
 
-  changeFilter(event) { // update the username that we filter by
-    this.setState({filter: event.target.value});
-  }
+  changeFilter(event) { // update the username that we filter by live
+    this.setState({filter: event.target.value},
+      ()=> {                                            //just use an anonymous function for this lookup, no loop like above
+        if(this.state.filter == ''){                    // if no filter set, just lookup the whole list
+          fetch(this.state.restloc)
+            .then(result=>result.json())
+            .then(blogs=>this.setState({blogs}));
+        }
+        else{                                           // if we want to filter, simply examine filtered data
+          fetch(this.state.restloc + '?op=' + this.state.filter)
+            .then(result=>result.json())
+            .then(blogs=>this.setState({blogs}));
+        }
+    });
+  } 
 
   componentDidMount(){ //start our pseudo-hot refresh loop
     this.getRest()
