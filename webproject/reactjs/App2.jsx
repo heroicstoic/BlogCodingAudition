@@ -3,6 +3,8 @@ import { render } from "react-dom"
 
 var api_loc = 'http://127.0.0.1:8000/api/'
 
+// Not entirely xss safe, unless input was protected on django end.
+// If time allowed, implement more XSS protection on client side
 class App2 extends React.Component {
   constructor() {
     super();
@@ -46,9 +48,7 @@ class App2 extends React.Component {
                 <div className="site-heading">
                   <h1>{ this.state.blog.title }</h1>
                   <h2>{ this.state.blog.description }</h2>
-                  <p className="post-meta">Posted by
-                    { this.state.blog.username }
-                    on { this.state.blog.plaindate }
+                  <p className="post-meta">Posted by { this.state.blog.username } on { this.state.blog.plaindate }
                   </p>
                 </div>            
               </div>
