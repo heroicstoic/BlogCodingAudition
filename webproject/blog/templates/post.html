@@ -1,26 +1,20 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 
-{% block title %}
-	<div class="site-heading">
-		<h1>{{ blog.title }}</h1>
-		<h2>{{ blog.description }}</h2>
-		<p class="post-meta">Posted by
-			{{ blog.op.username }}
-			on {{ blog.datePublished }}
-		</p>
-	</div>
-{% endblock %}
+{% load render_bundle from webpack_loader %}
 
-{% block content %}
+{% block base %}
 
-<!-- The content of the blog will be updated live, through a second React App, this is just a placeholder -->
+<div id="App2" ></div>
 
-<div class="row">
-    <div class="col-lg-8 col-md-10 mx-auto">
-		<p>
-		{{ blog.content|linebreaksbr }}
-		</p>
-	</div>
-</div>
+<script type="text/javascript">
+	
+	BLOG_ID = {{ blog.id }} ;
+
+</script>
+
+{% render_bundle 'vendors' %}
+
+{% render_bundle 'App2' %}
 
 {% endblock %}

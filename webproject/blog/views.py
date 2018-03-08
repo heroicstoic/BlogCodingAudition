@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, HttpResponse
 from blog.models import Blog
-from blog.forms import BlogForm, SearchForm
+from blog.forms import BlogForm
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from blog.serializers import BlogSerializer
