@@ -6,18 +6,19 @@ import { render } from "react-dom"
 export default class BlogDesc extends React.Component {
 	render() {
 		return (
-			<a href={"/post/"+this.props.postID} >
+			
 			<div className="post-preview">
+				<a href={"/post/"+this.props.postID} >
 				<h2 className="post-title">
 					{ this.props.title }
 				</h2>
 				<p className="post-subtitle">
 					{ this.props.description }
 				</p>
+				</a>
 				<p className="post-meta">Posted by { this.props.username } on { this.props.plaindate }
 				</p>
 			</div>
-			</a>
 		)
 	}
 }
