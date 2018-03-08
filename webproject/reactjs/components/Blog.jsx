@@ -1,8 +1,6 @@
 import React from "react"
 import { render } from "react-dom"
 
-import BlogList from "./containers/BlogList"
-
 export default class Blog extends React.Component {
 	render() {
 		return (

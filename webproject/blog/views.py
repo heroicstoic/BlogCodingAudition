@@ -67,8 +67,14 @@ def delete(request,pk):
 	return render(request, 'write.html', args)
 
 class BlogListView(generics.ListAPIView):
-	queryset = Blog.objects.all()
 	serializer_class = BlogSerializer
+
+	def get_queryset(self):
+		qset = Blog.objects.all()
+		query = self.request.GET.get("op")
+		if query is not None:
+			qset = qset.filter(op__username=query)
+		return qset
 
 class BlogRUDView(generics.RetrieveUpdateDestroyAPIView):
 	queryset = Blog.objects.all()
