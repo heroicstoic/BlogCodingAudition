@@ -57,14 +57,10 @@ class App2 extends React.Component {
         </header>
 
         <div className="container">
-          <div className="fb-like" dataHref={ window.location.href } dataLayout="standard" dataAction="like" dataSize="small" dataShowFaces="true" dataShare="true"></div>
                   
-          <p style={{ whiteSpace: "pre-line" }}>
+          <p style={{ whiteSpace: "pre-line", boxSizing: "border-box"}}>
             { this.state.blog.content }
           </p>
-
-          <div className="fb-like" dataHref={ window.location.href } dataLayout="standard" dataAction="like" dataSize="small" dataShowFaces="true" dataShare="true"></div>
-
         </div>
       </div>
     )

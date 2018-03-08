@@ -1,1 +1,4 @@
 # BlogCodingAudition
+
+## Instructions to run
+
