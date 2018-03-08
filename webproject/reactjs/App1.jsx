@@ -45,6 +45,7 @@ class App1 extends React.Component {
     return (
       <div>
         <input className="form-control" type="text" value={this.state.filter} onChange={this.changeFilter} placeholder="Filter by Original Poster" />
+        <br/>
         <BlogList blogs={this.state.blogs} />
       </div>
     )
