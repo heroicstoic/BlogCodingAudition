@@ -5,10 +5,11 @@ from . import views
 urlpatterns = [
 	path('', views.home, name='index'),
 	path('write/', views.write, name='write'),
-	path('edit/<int:pk>)', views.edit, name='edit'),
-	path('delete/<int:pk>)', views.delete, name='delete'),
+	path('post/<int:pk>', views.post, name='post'),
+	path('edit/<int:pk>', views.edit, name='edit'),
+	path('delete/<int:pk>', views.delete, name='delete'),
 	path('api/', views.BlogListView.as_view(), name='rest_list'),
-	path('api/<int:pk>', views.BlogRUDView.as_view(), name='rest_rud'),
+	path('api/<int:pk>', views.BlogRView.as_view(), name='rest_rud'),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

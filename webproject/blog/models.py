@@ -1,9 +1,9 @@
 from django.forms import ModelForm
 from django.db import models
 from django.contrib.auth.models import User
+from django.shortcuts import reverse
 
-# Create your models here.
-
+# Basic blog structure, largely self explanitory fields
 class Blog(models.Model):
 	title = models.CharField(max_length = 256, help_text = "Blog Title")
 	description = models.CharField(max_length = 256, help_text = "Blog Description")
@@ -15,7 +15,7 @@ class Blog(models.Model):
 		ordering = ["-datePublished", "title", "description", "content", "op"]
 
 	def get_absolute_url(self):
-		return reverse('model-detail-view', args=[str(self.id)])
+		return reverse('post', args=[str(self.id)])
 
 	def __str__(self):
 		return self.title

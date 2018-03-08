@@ -6,9 +6,23 @@
 	</div>
 {% endblock %}
 
+<!-- Again, as a secure page, this is handled almost
+	entirely on the server side, as opposed to client
+	where we risk injections. The page should simply
+	not work if you manage to get to the edit/delete
+	page for a blog you don't own. -->
+
 {% block content %}
 
-<h2>Write a new blog.</h2>
+{% if request.resolver_match.url_name == 'delete' %}
+
+<h2>Delete this blog?</h2>
+
+{% else %}
+
+<h2>Edit your blog.</h2>
+
+{% endif %}
 
 <form method='post'>
 

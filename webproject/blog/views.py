@@ -6,27 +6,20 @@ from django.contrib.auth.decorators import login_required
 from blog.serializers import BlogSerializer
 from rest_framework import generics
 
-# Create your views here.
+# Home page, entirely react controlled and live
 def home(request):
-	if request.method == 'POST':
-		form = SearchForm(request.POST)
-		blogs = Blog.objects.all()
-		if form.is_valid():
-			blogs = Blog.objects.filter(op__username=form.cleaned_data['author'])
+	return render(request, 'index.html')
 
-		args = {'blogs': blogs, 'form':form}
-		return render(request, 'index.html', args)
+# view a post, also to be react controlled
+def post(request,pk):
+	blog = Blog.objects.get(pk=pk)
+	args = {'blog' : blog}
+	return render(request, 'post.html', args)
 
-	else:
-		form = SearchForm()
-		blogs = Blog.objects.all()
-
-		args = {'blogs': blogs, 'form':form}
-		return render(request, 'index.html', args)
-
+# create new blog. Secure page, django controlled
 @login_required
 def write(request):
-	if request.method == 'POST':
+	if request.method == 'POST': # if we are posting, save the blog safely and go to the home page
 		form = BlogForm(request.POST)
 		if form.is_valid():
 			blog = form.save(commit=False)
@@ -34,15 +27,16 @@ def write(request):
 			blog.save()
 		
 		return redirect(reverse('index'))
-	else:
+	else: # if we aren't posting, simply direct to the login page
 		form = BlogForm()
 		args = {'form': form}
 		return render(request, 'write.html', args)
 
+# edit submitted blog, server-side secured
 @login_required
 def edit(request, pk):
 	blog = Blog.objects.get(pk=pk)
-	if request.method == "POST" and request.user == blog.op:
+	if request.method == "POST" and request.user == blog.op: #if we are posting, and the user owns the blog, let the changes be saved.
 		form = BlogForm(request.POST)
 		if form.is_valid():
 			new_blog = form.save(commit=False)
@@ -50,32 +44,42 @@ def edit(request, pk):
 			blog.content = new_blog.content
 			blog.save()
 		return redirect(reverse('profile'))
+
+	# if any above requirements are not satisfied, simply direct to the page.
 	form = BlogForm(instance = blog)
 	args = {'form': form}
 	return render(request, 'write.html', args)
 
+# delete submitted blog, server-side secured
 @login_required
 def delete(request,pk):
 	blog = Blog.objects.get(pk=pk)
-	if request.method == "POST" and request.user == blog.op:
+	if request.method == "POST" and request.user == blog.op: #if we are posting, and the user owns the blog, let the blog be deleted.
 		form = BlogForm(request.POST)
 		if form.is_valid():
 			blog.delete()
 		return redirect(reverse('profile'))
+
+	# if any above requirements are not satisfied, simply direct to the page.
 	form = BlogForm(instance = blog)
 	args = {'form': form}
 	return render(request, 'write.html', args)
 
+# List for REST API, returns all blogs, with optional filter
 class BlogListView(generics.ListAPIView):
 	serializer_class = BlogSerializer
 
-	def get_queryset(self):
+	def get_queryset(self): # determine what we should be serving the user
 		qset = Blog.objects.all()
 		query = self.request.GET.get("op")
 		if query is not None:
 			qset = qset.filter(op__username=query)
+		# since we can't update or destroy from this view, 
 		return qset
 
-class BlogRUDView(generics.RetrieveUpdateDestroyAPIView):
+# Allow retrieve view, but not full RUD, as securing is more complicated, and not needed with this implementation
+# Allows GET, HEAD, OPTIONS, but not PUT or PATCH
+# If time permits, implement secure RUD
+class BlogRView(generics.RetrieveAPIView):
 	queryset = Blog.objects.all()
 	serializer_class = BlogSerializer
