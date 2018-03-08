@@ -13,6 +13,8 @@
 
 <br>
 
+<!-- I chose not to use React for the profile page, as I don't want to risk the potential security hole from creating a live  -->
+
 <div class="row">
     <div class="col-lg-8 col-md-10 mx-auto">
    	{% for blog in blogs %}
@@ -21,7 +23,7 @@
 				{{ blog.title }}
 			</h2>
 			<p class="post-subtitle">
-            	{{ blog.content }}
+            	{{ blog.content|linebreaksbr }}
 			</p>
 			<p class="post-meta">Posted by
 				{{ blog.op.username }}

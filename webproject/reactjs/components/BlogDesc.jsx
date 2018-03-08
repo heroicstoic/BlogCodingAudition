@@ -1,7 +1,9 @@
 import React from "react"
 import { render } from "react-dom"
 
-export default class Blog extends React.Component {
+// simple render component for a blog, no buttons for edit delete
+
+export default class BlogDesc extends React.Component {
 	render() {
 		return (
 			<div className="post-preview">
@@ -9,7 +11,7 @@ export default class Blog extends React.Component {
 					{ this.props.title }
 				</h2>
 				<p className="post-subtitle">
-					{ this.props.content }
+					{ this.props.description }
 				</p>
 				<p className="post-meta">Posted by { this.props.username } on { this.props.plaindate }
 				</p>

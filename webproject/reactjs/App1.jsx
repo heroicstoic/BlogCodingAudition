@@ -13,31 +13,33 @@ class App1 extends React.Component {
       restloc: api_loc, //for storing the location we query for data
       filter: ''        //what author are we filtering for?
     };
+
+    //bind this for our functions
     this.changeFilter = this.changeFilter.bind(this);
     this.getRest = this.getRest.bind(this);
   }
 
-  getRest(){
-    if(this.state.filter == ''){
+  getRest(){                                        //get the data for our app, recursively called every 5 seconds
+    if(this.state.filter == ''){                    // if no filter set, just lookup the whole list
       fetch(this.state.restloc)
         .then(result=>result.json())
         .then(blogs=>this.setState({blogs}))
-        .then(()=>setTimeout(this.getRest, 1000));
+        .then(()=>setTimeout(this.getRest, 5000)); 
     }
-    else{
+    else{                                           // if we want to filter, simply examine filtered data
       fetch(this.state.restloc + '?op=' + this.state.filter)
         .then(result=>result.json())
         .then(blogs=>this.setState({blogs}))
-        .then(()=>setTimeout(this.getRest, 1000));
+        .then(()=>setTimeout(this.getRest, 5000));
     }
 
   }
 
-  changeFilter(event) {
+  changeFilter(event) { // update the username that we filter by
     this.setState({filter: event.target.value});
   }
 
-  componentDidMount(){
+  componentDidMount(){ //start our pseudo-hot refresh loop
     this.getRest()
   }
 
